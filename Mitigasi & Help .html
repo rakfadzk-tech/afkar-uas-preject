@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MITIGASI TSUNAMI – LAPAH SELAMAT KOTA AGUNG</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #222;
+}
+
+/* BACKGROUND */
+.bg-image {
+    position: fixed;
+    inset: 0;
+    background: url("https://b1730868.smushcdn.com/1730868/wp-content/uploads/2020/07/Drone-Desa-Tompe-Pasca-Tsunami_2.jpg?lossy=1&strip=1&webp=1")
+        center / cover no-repeat;
+    z-index: -2;
+}
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: -1;
+}
+
+/* BACK BUTTON */
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: white;
+}
+header img {
+    width: 110px;
+    margin-bottom: 10px;
+}
+header h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+/* CONTENT */
+.content {
+    padding: 40px 20px;
+}
+
+/* GRID MENU */
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* CARD MENU */
+.news-item {
+    background: rgba(255,255,255,0.92);
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.news-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+
+/* ICON IMAGE */
+.news-item img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+/* TITLE */
+.news-item h3 {
+    font-size: 20px;
+    color: darkred;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* BUTTON */
+.news-item a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: darkred;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+.news-item a:hover {
+    background: #a00000;
+    transform: scale(1.05);
+}
+
+/* FOOTER */
+footer {
+    margin-top: 80px;
+    background: linear-gradient(to right, #7b0000, #b30000);
+    color: white;
+    padding: 25px 10px;
+    text-align: center;
+}
+.footer-icons {
+    margin-top: 10px;
+}
+.footer-icons a {
+    margin: 0 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<a href="Home UAS.html" class="btn-back">⬅ KEMBALI</a>
+
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lambang_Kabupaten_Tanggamus.png/250px-Lambang_Kabupaten_Tanggamus.png">
+    <h1>MITIGASI TSUNAMI</h1>
+</header>
+
+<section class="content">
+    <div class="news-container">
+
+        <div class="news-item">
+            <img src="https://img.pikbest.com/png-images/20240821/simple-modern-book-logo-vector_10745589.png!sw800">
+            <h3>MITIGASI</h3>
+            <a href="C:\laragon\www\UAS\MITIGASI.html">Klik Selanjutnya</a>
+        </div>
+
+        <div class="news-item">
+            <img src="https://png.pngtree.com/png-vector/20230816/ourmid/pngtree-stickers-police-boy-cartoon-design-for-children-clipart-vector-png-image_6997890.png">
+            <h3>HELP ?</h3>
+            <a href="C:\laragon\www\UAS\HELP.html">Klik Selanjutnya</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>Alamat: Kecamatan Kota Agung, Kabupaten Tanggamus, Provinsi Lampung</p>
+    <div class="footer-icons">
+        <a href="https://www.bmkg.go.id/">📊 BMKG</a>
+        <a href="https://www.portaltanggamus.id/">🏢 PEMDA</a>
+        <a href="#">💻 Media Sosial</a>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+        <link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+        
+        <!-- Font Awesome untuk icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <style>
+        /* Reset dan layout dasar */
+        html, body {
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        
+        /* Header Styling dengan Warna DarkRed */
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%); /* DarkRed gradient */
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 3px solid #FFD700; /* Warna emas untuk kontras */
+        }
+        
+        /* Bagian Kiri - Tombol Kembali */
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Tombol Kembali */
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            border: 1px solid rgba(255, 215, 0, 0.3); /* Border emas tipis */
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            border-color: #FFD700;
+        }
+        
+        .back-button i {
+            font-size: 22px;
+            color: white;
+        }
+        
+        /* Bagian Tengah - Logo + Teks */
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        
+        /* Container Logo dan Teks */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 25px;
+            background: rgba(0, 0, 0, 0.2); /* Background gelap untuk kontras */
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 215, 0, 0.3); /* Border emas */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Logo Tanggamus */
+        .logo-container {
+            position: relative;
+        }
+        
+        .logo-tanggamus {
+            height: 55px;
+            width: 55px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            border: 2px solid #FFD700; /* Border emas */
+            transition: transform 0.3s ease;
+        }
+        
+        .brand-container:hover .logo-tanggamus {
+            transform: rotate(5deg) scale(1.05);
+        }
+        
+        /* Teks Brand */
+        .brand-text {
+            text-align: left;
+        }
+        
+        .brand-text h1 {
+            color: white;
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+        
+        .brand-text p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Bagian Kanan - Kosong atau bisa ditambahkan menu lain */
+        .header-right {
+            width: 50px; /* Sama dengan tombol kembali untuk balance */
+        }
+        
+        /* Map Container */
+        #map {
+            width: 100%;
+            height: calc(100% - 80px);
+            margin-top: 80px;
+        }
+        
+        /* Popup styling */
+        .ol-control > * {
+            background-color: #f8f8f8!important;
+            color: #444444!important;
+            border-radius: 0px;
+        }
+        .ol-attribution a, .gcd-gl-input::placeholder, .search-layer-input-search::placeholder {
+            color: #444444!important;
+        }
+        .search-layer-input-search {
+            background-color: #f8f8f8!important;
+        }
+        .ol-control > *:focus, .ol-control >*:hover {
+            background-color: rgba(248, 248, 248, 0.7)!important;
+        } 
+        .ol-control {
+            background-color: rgba(255,255,255,.4) !important;
+            padding: 2px !important;
+        }
+        
+        /* Tooltip untuk tombol kembali */
+        .back-button::after {
+            content: "Kembali ke Halaman Utama";
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+            pointer-events: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            border: 1px solid #FFD700;
+        }
+        
+        .back-button:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Glow effect pada logo dengan warna DarkRed */
+        @keyframes logoGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                           0 0 20px rgba(139, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.7),
+                           0 0 30px rgba(139, 0, 0, 0.4);
+            }
+        }
+        
+        .logo-tanggamus {
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+        
+        /* Animasi border header */
+        @keyframes borderPulse {
+            0%, 100% {
+                border-bottom-color: #FFD700;
+            }
+            50% {
+                border-bottom-color: #FFA500;
+            }
+        }
+        
+        .header-container {
+            animation: borderPulse 4s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .brand-text h1 {
+                font-size: 24px;
+            }
+            
+            .brand-text p {
+                font-size: 13px;
+            }
+            
+            .logo-tanggamus {
+                height: 50px;
+                width: 50px;
+            }
+            
+            .brand-container {
+                gap: 15px;
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-container {
+                height: 75px;
+            }
+            
+            .brand-text h1 {
+                font-size: 22px;
+            }
+            
+            .brand-text p {
+                font-size: 12px;
+            }
+            
+            .logo-tanggamus {
+                height: 45px;
+                width: 45px;
+            }
+            
+            .brand-container {
+                gap: 12px;
+                padding: 8px 15px;
+            }
+            
+            .back-button {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .back-button i {
+                font-size: 20px;
+            }
+            
+            #map {
+                height: calc(100% - 75px);
+                margin-top: 75px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                height: 70px;
+                padding: 0 15px;
+            }
+            
+            .brand-text h1 {
+                font-size: 20px;
+            }
+            
+            .brand-text p {
+                font-size: 11px;
+                margin-top: 3px;
+            }
+            
+            .logo-tanggamus {
+                height: 40px;
+                width: 40px;
+            }
+            
+            .brand-container {
+                gap: 10px;
+                padding: 6px 12px;
+            }
+            
+            .back-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-button i {
+                font-size: 18px;
+            }
+            
+            #map {
+                height: calc(100% - 70px);
+                margin-top: 70px;
+            }
+            
+            .back-button::after {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-container {
+                padding: 0 10px;
+                height: 65px;
+            }
+            
+            .brand-text h1 {
+                font-size: 18px;
+                letter-spacing: 0.5px;
+            }
+            
+            .brand-text p {
+                font-size: 10px;
+            }
+            
+            .logo-tanggamus {
+                height: 35px;
+                width: 35px;
+                padding: 3px;
+            }
+            
+            .brand-container {
+                gap: 8px;
+                padding: 5px 10px;
+            }
+            
+            .back-button {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .back-button i {
+                font-size: 16px;
+            }
+            
+            #map {
+                height: calc(100% - 65px);
+                margin-top: 65px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .brand-text h1 {
+                font-size: 16px;
+            }
+            
+            .brand-text p {
+                display: none; /* Sembunyikan subtitle di layar sangat kecil */
+            }
+            
+            .logo-tanggamus {
+                height: 30px;
+                width: 30px;
+            }
+            
+            .brand-container {
+                padding: 4px 8px;
+            }
+            
+            @media (max-width: 360px) {
+                .brand-text h1 {
+                    font-size: 14px;
+                }
+                
+                .logo-tanggamus {
+                    display: none; /* Sembunyikan logo jika sangat sempit */
+                }
+            }
+        }
+        </style>
+        <title>Lapah Selamat Kota Agung - GIS Portal</title>
+    </head>
+    <body>
+        <!-- Header Section -->
+        <div class="header-container">
+            <!-- Bagian Kiri: Tombol Kembali -->
+            <div class="header-left">
+                <a href="C:\laragon\www\UAS\2D.html" class="back-button" title="Kembali ke Halaman Utama">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            
+            <!-- Bagian Tengah: Logo + Teks -->
+            <div class="header-center">
+                <div class="brand-container">
+                    <div class="logo-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lambang_Kabupaten_Tanggamus.png/250px-Lambang_Kabupaten_Tanggamus.png" 
+                             alt="Logo Kabupaten Tanggamus" 
+                             class="logo-tanggamus">
+                    </div>
+                    
+                    <div class="brand-text">
+                        <h1>LAPAH SELAMAT KOTA AGUNG</h1>
+                        <p>Portal Informasi Geografis - Sistem Pemantauan dan Mitigasi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bagian Kanan: (Kosong untuk balance) -->
+            <div class="header-right"></div>
+        </div>
+
+        <!-- Map Container -->
+        <div id="map">
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+        </div>
+        
+        <!-- Scripts -->
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="resources/photon-geocoder-autocomplete.min.js"></script>
+        <script src="layers/Admin_KotaAgung_2.js"></script>
+        <script src="layers/Kontur_KotaAgung_3.js"></script>
+        <script src="styles/Admin_KotaAgung_2_style.js"></script>
+        <script src="styles/Kontur_KotaAgung_3_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>
+        
+        <!-- Script tambahan untuk interaksi header -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Animasi masuk header
+                const header = document.querySelector('.header-container');
+                const backButton = document.querySelector('.back-button');
+                const brandContainer = document.querySelector('.brand-container');
+                
+                // Set awal untuk animasi
+                header.style.opacity = '0';
+                header.style.transform = 'translateY(-20px)';
+                
+                // Animasi header masuk
+                setTimeout(() => {
+                    header.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    header.style.opacity = '1';
+                    header.style.transform = 'translateY(0)';
+                }, 200);
+                
+                // Animasi brand container
+                setTimeout(() => {
+                    brandContainer.style.transform = 'scale(0.95)';
+                    brandContainer.style.opacity = '0.8';
+                    
+                    setTimeout(() => {
+                        brandContainer.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                        brandContainer.style.transform = 'scale(1)';
+                        brandContainer.style.opacity = '1';
+                    }, 100);
+                }, 300);
+                
+                // Efek hover aktif pada tombol kembali
+                backButton.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-3px) scale(1.05)';
+                });
+                
+                backButton.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0) scale(1)';
+                });
+                
+                // Efek hover pada brand container
+                brandContainer.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.02)';
+                    this.style.boxShadow = '0 6px 20px rgba(139, 0, 0, 0.4)';
+                    this.style.borderColor = 'rgba(255, 215, 0, 0.6)';
+                });
+                
+                brandContainer.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.3)';
+                    this.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                });
+                
+                // Keyboard shortcut untuk tombol kembali (Esc)
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        // Simulasi klik tombol kembali
+                        backButton.click();
+                    }
+                });
+                
+                // Tambahkan ripple effect pada tombol kembali dengan warna DarkRed
+                backButton.addEventListener('click', function(e) {
+                    // Buat elemen ripple
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size/2;
+                    const y = e.clientY - rect.top - size/2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 215, 0, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        top: ${y}px;
+                        left: ${x}px;
+                        pointer-events: none;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    // Hapus ripple setelah animasi selesai
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+                
+                // Tambahkan style untuk animasi ripple
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: scale(4);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Update title halaman
+                document.title = 'Lapah Selamat Kota Agung - GIS Portal Tanggamus';
+                
+                // Tambahkan efek saat scroll
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', function() {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > lastScrollTop) {
+                        // Scroll ke bawah - sedikit transparan
+                        header.style.opacity = '0.95';
+                    } else {
+                        // Scroll ke atas - penuh opacity
+                        header.style.opacity = '1';
+                    }
+                    
+                    lastScrollTop = scrollTop;
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MITIGASI TSUNAMI – LAPAH SELAMAT KOTA AGUNG</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #222;
+}
+
+/* BACKGROUND */
+.bg-image {
+    position: fixed;
+    inset: 0;
+    background: url("https://b1730868.smushcdn.com/1730868/wp-content/uploads/2020/07/Drone-Desa-Tompe-Pasca-Tsunami_2.jpg?lossy=1&strip=1&webp=1")
+        center / cover no-repeat;
+    z-index: -2;
+}
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: -1;
+}
+
+/* BACK BUTTON */
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.btn-back:hover {
+    background: darkred;
+    color: white;
+    transform: translateX(-5px);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: white;
+}
+header img {
+    width: 110px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
+}
+header h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    margin-bottom: 10px;
+}
+header p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* CONTENT */
+.content {
+    padding: 40px 20px;
+}
+
+/* GRID MENU */
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* CARD MENU */
+.news-item {
+    background: rgba(255,255,255,0.92);
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid darkred;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.news-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+
+/* ICON IMAGE */
+.news-item img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    background: rgba(139, 0, 0, 0.1);
+}
+
+/* TITLE */
+.news-item h3 {
+    font-size: 20px;
+    color: darkred;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* DESCRIPTION */
+.news-item p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+/* POINT LIST */
+.point-list {
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.point-list li {
+    color: #333;
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+/* BUTTON */
+.news-item a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: darkred;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    border: 2px solid transparent;
+    margin-top: 10px;
+}
+.news-item a:hover {
+    background: #a00000;
+    transform: scale(1.05);
+    border-color: #fff;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 80px;
+    background: linear-gradient(to right, #7b0000, #b30000);
+    color: white;
+    padding: 25px 10px;
+    text-align: center;
+    border-top: 4px solid #ffd700;
+}
+.footer-icons {
+    margin-top: 10px;
+}
+.footer-icons a {
+    margin: 0 15px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+.footer-icons a:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 24px;
+    }
+    
+    header p {
+        font-size: 14px;
+    }
+    
+    .news-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .btn-back {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .footer-icons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-icons a {
+        margin: 5px 0;
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<a href="Home UAS.html" class="btn-back">⬅ KEMBALI KE HALAMAN UTAMA</a>
+
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lambang_Kabupaten_Tanggamus.png/250px-Lambang_Kabupaten_Tanggamus.png">
+    <h1>MITIGASI TSUNAMI</h1>
+    <p>Sistem Informasi dan Panduan Keselamatan Bencana Tsunami - Kota Agung, Tanggamus</p>
+</header>
+
+<section class="content">
+    <div class="news-container">
+        
+        <!-- KARTU 1: PERSIAPAN SEBELUM TSUNAMI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3137/3137046.png" alt="Persiapan">
+            <h3>PERSIAPAN SEBELUM TSUNAMI</h3>
+            <p>Langkah-langkah kesiapsiagaan yang harus dilakukan untuk meminimalkan risiko tsunami.</p>
+            <ul class="point-list">
+                <li>Kenali jalur evakuasi dan titik kumpul</li>
+                <li>Persiapkan tas siaga bencana (logistik 3 hari)</li>
+                <li>Pelajari sistem peringatan dini BMKG</li>
+                <li>Ikuti simulasi evakuasi rutin</li>
+                <li>Tandai lokasi aman di peta digital</li>
+            </ul>
+            <a href="#">LIHAT DETAIL PERSIAPAN</a>
+        </div>
+
+        <!-- KARTU 2: SAAT TERJADI TSUNAMI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2912/2912095.png" alt="Saat Terjadi">
+            <h3>SAAT TERJADI TSUNAMI</h3>
+            <p>Tindakan segera yang harus dilakukan ketika peringatan tsunami diberikan.</p>
+            <ul class="point-list">
+                <li>Segera evakuasi ke tempat tinggi</li>
+                <li>Jauhi pantai dan sungai</li>
+                <li>Bawa tas siaga bencana</li>
+                <li>Ikuti instruksi petugas</li>
+                <li>Gunakan tangga, hindari lift</li>
+                <li>Berlindung di gedung bertingkat tinggi</li>
+            </ul>
+            <a href="#">PANDUAN TINDAKAN CEPAT</a>
+        </div>
+
+        <!-- KARTU 3: PASCA TSUNAMI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2912/2912094.png" alt="Pasca Tsunami">
+            <h3>PASCA TSUNAMI</h3>
+            <p>Langkah pemulihan dan tindakan setelah tsunami berlalu.</p>
+            <ul class="point-list">
+                <li>Tetap di tempat aman hingga ada informasi resmi</li>
+                <li>Hindari air yang tergenang</li>
+                <li>Periksa kerusakan infrastruktur</li>
+                <li>Lapor ke posko bencana terdekat</li>
+                <li>Ikuti arahan evakuasi tahap dua</li>
+                <li>Periksa kesehatan keluarga</li>
+            </ul>
+            <a href="#">INFO PEMULIHAN</a>
+        </div>
+
+        <!-- KARTU 4: SISTEM PERINGATAN DINI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2912/2912082.png" alt="Peringatan Dini">
+            <h3>SISTEM PERINGATAN DINI</h3>
+            <p>Teknologi dan sistem pemantauan tsunami di Kota Agung.</p>
+            <ul class="point-list">
+                <li>Sistem Buoy (pelampung) BMKG</li>
+                <li>Sensor seismik real-time</li>
+                <li>Notifikasi SMS & sirene peringatan</li>
+                <li>Aplikasi mobile early warning</li>
+                <li>Monitoring CCTV pantai 24/7</li>
+                <li>Koordinasi dengan InaTEWS</li>
+            </ul>
+            <a href="#">AKSES SISTEM PERINGATAN</a>
+        </div>
+
+        <!-- KARTU 5: ZONA RAWAN TSUNAMI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3137/3137050.png" alt="Zona Rawan">
+            <h3>ZONA RAWAN TSUNAMI</h3>
+            <p>Peta digital wilayah risiko tsunami di Kota Agung.</p>
+            <ul class="point-list">
+                <li>Peta risiko berdasar data historis</li>
+                <li>Zona merah (0-500m dari pantai)</li>
+                <li>Zona kuning (500-1000m dari pantai)</li>
+                <li>Zona hijau (aman, >1000m dari pantai)</li>
+                <li>Jalur evakuasi tercepat</li>
+                <li>Titik kumpul darurat</li>
+            </ul>
+            <a href="#">LIHAT PETA ZONASI</a>
+        </div>
+
+        <!-- KARTU 6: FASILITAS DARURAT -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3137/3137048.png" alt="Fasilitas Darurat">
+            <h3>FASILITAS DARURAT</h3>
+            <p>Lokasi fasilitas pendukung saat bencana tsunami.</p>
+            <ul class="point-list">
+                <li>Posko tanggap darurat</li>
+                <li>Rumah sakit rujukan</li>
+                <li>Gudang logistik BPPBD</li>
+                <li>Shelter sementara</li>
+                <li>Dapur umum darurat</li>
+                <li>Pos kesehatan lapangan</li>
+            </ul>
+            <a href="#">LOKASI FASILITAS</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p><strong>LAPAH SELAMAT KOTA AGUNG</strong> - Portal Informasi Geografis dan Mitigasi Bencana</p>
+    <p>Alamat: Kecamatan Kota Agung, Kabupaten Tanggamus, Provinsi Lampung</p>
+    <p>Hotline Darurat: 112 | Call Center Tsunami: 119</p>
+    <div class="footer-icons">
+        <a href="https://www.bmkg.go.id/" target="_blank">📊 BMKG</a>
+        <a href="https://www.portaltanggamus.id/" target="_blank">🏢 PEMDA TANGGAMUS</a>
+        <a href="https://bnpb.go.id/" target="_blank">🚨 BNPB INDONESIA</a>
+        <a href="https://www.instagram.com/" target="_blank">📱 MEDIA SOSIAL</a>
+    </div>
+    <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">© 2024 LAPAH SELAMAT KOTA AGUNG. Hak Cipta Dilindungi.</p>
+</footer>
+
+</body>
+</html>

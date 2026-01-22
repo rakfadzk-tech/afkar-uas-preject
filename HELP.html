@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HELP & KONTAK DARURAT – LAPAH SELAMAT KOTA AGUNG</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #222;
+}
+
+/* BACKGROUND */
+.bg-image {
+    position: fixed;
+    inset: 0;
+    background: url("https://b1730868.smushcdn.com/1730868/wp-content/uploads/2020/07/Drone-Desa-Tompe-Pasca-Tsunami_2.jpg?lossy=1&strip=1&webp=1")
+        center / cover no-repeat;
+    z-index: -2;
+}
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: -1;
+}
+
+/* BACK BUTTON */
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.btn-back:hover {
+    background: darkred;
+    color: white;
+    transform: translateX(-5px);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: white;
+}
+header img {
+    width: 110px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
+}
+header h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    margin-bottom: 10px;
+}
+header p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* CONTENT */
+.content {
+    padding: 40px 20px;
+}
+
+/* GRID MENU */
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* CARD MENU */
+.news-item {
+    background: rgba(255,255,255,0.95);
+    border-radius: 16px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid darkred;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.news-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+
+/* ICON IMAGE */
+.news-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    padding: 15px;
+    background: rgba(139, 0, 0, 0.1);
+}
+
+/* TITLE */
+.news-item h3 {
+    font-size: 20px;
+    color: darkred;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* CONTACT INFO */
+.contact-info {
+    text-align: left;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.contact-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(139, 0, 0, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid darkred;
+}
+
+.contact-label {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.contact-detail {
+    font-size: 16px;
+    color: darkred;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-detail a {
+    color: darkred;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-detail a:hover {
+    color: #a00000;
+    text-decoration: underline;
+}
+
+.hotline {
+    background: darkred;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(139, 0, 0, 0);
+    }
+}
+
+/* SERVICE TYPE */
+.service-type {
+    display: inline-block;
+    background: #e8f4fd;
+    color: #0066cc;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.news-item .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 25px;
+    background: darkred;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    border: 2px solid transparent;
+    margin-top: 10px;
+}
+.news-item .action-btn:hover {
+    background: #a00000;
+    transform: scale(1.05);
+    border-color: #fff;
+}
+
+/* EMERGENCY BANNER */
+.emergency-banner {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+}
+
+.emergency-banner h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.emergency-number {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 15px 0;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.emergency-note {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 80px;
+    background: linear-gradient(to right, #7b0000, #b30000);
+    color: white;
+    padding: 25px 10px;
+    text-align: center;
+    border-top: 4px solid #ffd700;
+}
+.footer-icons {
+    margin-top: 10px;
+}
+.footer-icons a {
+    margin: 0 15px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+.footer-icons a:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 24px;
+    }
+    
+    header p {
+        font-size: 14px;
+    }
+    
+    .news-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .btn-back {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .emergency-number {
+        font-size: 28px;
+    }
+    
+    .footer-icons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-icons a {
+        margin: 5px 0;
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<a href="Home UAS.html" class="btn-back">⬅ KEMBALI KE HALAMAN UTAMA</a>
+
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lambang_Kabupaten_Tanggamus.png/250px-Lambang_Kabupaten_Tanggamus.png">
+    <h1>HELP & KONTAK DARURAT</h1>
+    <p>Hubungi layanan darurat berikut untuk pertolongan cepat saat terjadi bencana di Kota Agung, Tanggamus</p>
+</header>
+
+<section class="content">
+    
+    <!-- BANNER DARURAT UTAMA -->
+    <div class="emergency-banner">
+        <h2>🚨 NOMOR DARURAT NASIONAL 🚨</h2>
+        <div class="emergency-number">112</div>
+        <p>Hotline Darurat 24 Jam - Gratis dari semua operator</p>
+        <div class="emergency-note">
+            Untuk semua jenis darurat: Ambulans, Polisi, Pemadam, SAR
+        </div>
+    </div>
+
+    <div class="news-container">
+        
+        <!-- POLISI -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Polisi">
+            <span class="service-type">KEAMANAN & PENEGAKAN HUKUM</span>
+            <h3>KEPOLISIAN</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Polres Tanggamus</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:072122210">(0721) 22210</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Polsek Kota Agung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:072122513">(0721) 22513</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Hotline Darurat</div>
+                    <div class="contact-detail">
+                        <div class="hotline">110</div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:110" class="action-btn">📱 PANGGIL 110</a>
+        </div>
+
+        <!-- PEMADAM KEBAKARAN -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2970/2970785.png" alt="Pemadam Kebakaran">
+            <span class="service-type">KEBAKARAN & PENYELAMATAN</span>
+            <h3>PEMADAM KEBAKARAN</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Damkar Kota Agung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:072122310">(0721) 22310</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Posko Damkar Tanggamus</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:081234567890">0812-3456-7890</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Hotline Darurat</div>
+                    <div class="contact-detail">
+                        <div class="hotline">113</div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:113" class="action-btn">📱 PANGGIL 113</a>
+        </div>
+
+        <!-- AMBULANS & RUMAH SAKIT -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2966/2966321.png" alt="Ambulans">
+            <span class="service-type">KESEHATAN & MEDIS</span>
+            <h3>AMBULANS & RUMAH SAKIT</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">RSUD Kota Agung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:072122215">(0721) 22215</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Puskesmas Kota Agung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:072122418">(0721) 22418</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Hotline Darurat</div>
+                    <div class="contact-detail">
+                        <div class="hotline">118 / 119</div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:118" class="action-btn">📱 PANGGIL 118</a>
+        </div>
+
+        <!-- BASARNAS & SAR -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3273/3273613.png" alt="SAR">
+            <span class="service-type">PENCARIAN & PENYELAMATAN</span>
+            <h3>BASARNAS / SAR</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Kantor SAR Lampung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:0721473333">(0721) 473333</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Pos SAR Tanggamus</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:08117778899">0811-777-8899</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Hotline Darurat</div>
+                    <div class="contact-detail">
+                        <div class="hotline">115</div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:115" class="action-btn">📱 PANGGIL 115</a>
+        </div>
+
+        <!-- BPBD TANGGAMUS -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3137/3137044.png" alt="BPBD">
+            <span class="service-type">PENANGGULANGAN BENCANA</span>
+            <h3>BPBD TANGGAMUS</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">BPBD Kabupaten Tanggamus</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:0721223456">(0721) 223456</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Posko Bencana 24 Jam</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:08119998877">0811-999-8877</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Emergency Call Center</div>
+                    <div class="contact-detail">
+                        <div class="hotline">129</div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:129" class="action-btn">📱 PANGGIL 129</a>
+        </div>
+
+        <!-- BMKG & INFORMASI CUACA -->
+        <div class="news-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="BMKG">
+            <span class="service-type">INFORMASI CUACA & BENCANA</span>
+            <h3>BMKG & INFORMASI</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">BMKG Stasiun Lampung</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:0721470888">(0721) 470888</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Call Center BMKG</div>
+                    <div class="contact-detail">
+                        📞 <a href="tel:0216546318">(021) 654-6318</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Info Gempa & Tsunami</div>
+                    <div class="contact-detail">
+                        📱 <a href="https://bmkg.go.id">bmkg.go.id</a>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:0216546318" class="action-btn">📱 HUBUNGI BMKG</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p><strong>LAPAH SELAMAT KOTA AGUNG</strong> - Pusat Informasi Kontak Darurat Bencana</p>
+    <p>Alamat: Kecamatan Kota Agung, Kabupaten Tanggamus, Provinsi Lampung</p>
+    <p>📞 Hotline Terpadu: 112 | 🏥 Ambulans: 118 | 🚒 Pemadam: 113 | 👮 Polisi: 110</p>
+    <div class="footer-icons">
+        <a href="https://www.bmkg.go.id/" target="_blank">📊 BMKG INDONESIA</a>
+        <a href="https://www.portaltanggamus.id/" target="_blank">🏢 PEMDA TANGGAMUS</a>
+        <a href="https://bnpb.go.id/" target="_blank">🚨 BNPB INDONESIA</a>
+        <a href="https://www.instagram.com/" target="_blank">📱 SOSIAL MEDIA</a>
+    </div>
+    <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">© 2024 LAPAH SELAMAT KOTA AGUNG. Update terakhir: November 2024</p>
+</footer>
+
+</body>
+</html>
